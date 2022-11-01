@@ -48,6 +48,6 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace connection_module => ../checkduplicate
+replace connection_module => ../common
 
 replace github.com/enstenr/customtypes => ../struct-types

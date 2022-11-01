@@ -32,7 +32,7 @@ func main() {
 	}
 	LoadProperties(env);
 	bucket_name:=globalViperObj.GetString("BUCKET_NAME")
-	treeNameArray:=connection.ReadFromGCSPath("metadata_tree/reports/2022_10_26-12_31_16/reports.csv",bucket_name)
+	treeNameArray:=gcs.ReadFromGCSPath("metadata_tree/reports/2022_10_26-12_31_16/reports.csv",bucket_name)
 	metadatatreeArray,_:=connection.ProcessData(treeNameArray,env)
 
 	for _,value:= range(metadatatreeArray){
@@ -40,6 +40,6 @@ func main() {
 		GcsPath:=value.GcsPath
 		GcsPath=strings.Replace(GcsPath,"gs://content_us","",-1)
 		GcsPath=strings.Replace(GcsPath,"/","",1)
-	 	connection.CopyFile("metadata_tree_duplicate_sku/"+env,bucket_name,GcsPath)
+	 	gcs.CopyFile("metadata_tree_duplicate_sku/"+env,bucket_name,GcsPath)
 	}
 }
