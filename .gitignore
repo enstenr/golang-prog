@@ -3,3 +3,10 @@
 .csv
 **/.env
 **/.sum
+checkduplicate/go.sum
+load_tree_json/dev.env
+load_tree_json/go.sum
+*/*.sum
+**/*.sum
+**/*.env
+**/*.csv
