@@ -2,14 +2,16 @@ module read_gcs
 
 go 1.18
 
-require connection_module v0.0.0-00010101000000-000000000000
+require (
+	connection_module v0.0.0-00010101000000-000000000000
+	github.com/enstenr/customtypes v0.0.0-00010101000000-000000000000
+)
 
 require (
 	cloud.google.com/go v0.104.0 // indirect
 	cloud.google.com/go/compute v1.10.0 // indirect
 	cloud.google.com/go/iam v0.3.0 // indirect
 	cloud.google.com/go/storage v1.27.0 // indirect
-	github.com/enstenr/customtypes v0.0.0-00010101000000-000000000000 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect

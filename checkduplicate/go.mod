@@ -7,6 +7,7 @@ replace github.com/enstenr/customtypes => ../struct-types
 require (
 	cloud.google.com/go/storage v1.27.0
 	github.com/enstenr/customtypes v0.0.0-00010101000000-000000000000
+	github.com/jinzhu/copier v0.3.5
 	github.com/lib/pq v1.10.7
 	github.com/spf13/viper v1.13.0
 	google.golang.org/api v0.101.0
