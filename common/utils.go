@@ -1,4 +1,4 @@
-package connection
+package utils
 import(
 "crypto/sha1"
 	"encoding/hex"
