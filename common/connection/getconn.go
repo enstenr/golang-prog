@@ -120,7 +120,7 @@ func ProcessData(duplicateSkuReportObjArray []customtypes.DupliateSkuReport,env 
 
 		
 		duplicateSkuReportObj :=treeMap[metadataTreeObj.Name]
-		message:=cleanUpMessage(duplicateSkuReportObj.Message,metadataTreeObj.Name)  
+		message:=utils.cleanUpMessage(duplicateSkuReportObj.Message,metadataTreeObj.Name)  
 		 
 		  skuIdCount:=len(strings.Split(message, " "))
 		metadataTreeObj.Message=message
@@ -134,17 +134,7 @@ func ProcessData(duplicateSkuReportObjArray []customtypes.DupliateSkuReport,env 
 	return metadatatreeArray, nil
 }
 
-func cleanUpMessage(message string,treeName string) ( string) {
-	message = strings.Replace(message,",","",-1)
-	message=strings.Replace(message,"Metadata tree contains duplicate SKU for ","",-1)
-	message=strings.Replace(message,"in GCS. Duplicate SKUs are","",-1)
-	message=strings.Replace(message,"in GCS","",-1)
-	message=strings.Replace(message,treeName,"",-1)
-	message=strings.Replace(message,"'","",-1)
-	message=strings.Replace(message,"  "," ",-1)
-	message=strings.Trim(message," ")
-	return message;
-}
+
 
 
 func formTreeMap(duplicateSkuReportObjArray []customtypes.DupliateSkuReport) ( map[string]customtypes.DupliateSkuReport) {
