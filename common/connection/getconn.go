@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"database/sql"
 	"strings"
-
+	"github.com/enstenr/common/utils"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -205,7 +205,7 @@ return dupliateSkuReportObj;
 					system_category_id=criteriaObj.AttributeID
 				}
 			}
-			system_category_l2_category_id:=GetSHA1(fmt.Sprint(system_category_id,value.CategoryID))
+			system_category_l2_category_id:=utils.GetSHA1(fmt.Sprint(system_category_id,value.CategoryID))
 		//criteriaArray:=itemObj.Attrs.Config.MetadataTree.Criteria
 		//system_category,system_categoryId:=getSystemCategory(criteriaArray)
 	sqlStatement := `

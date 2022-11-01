@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/enstenr/common"
- 
+	"github.com/enstenr/common/connection"
+	"github.com/enstenr/common/gcs"
 	"os"
 	"strings"
 
