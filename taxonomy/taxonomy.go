@@ -59,7 +59,11 @@ Config struct {
 	} `json:"tree_mappings"`
 } `json:"config"`
 }
-
+/**
+This funtion is used to populate the table l2_category_mappings
+system category id , system category & L2 category L2 category name from 
+tree config is fetched and inserted into this table 
+**/
 func main() {
 	env, flag := os.LookupEnv("env")
 	if !flag {
