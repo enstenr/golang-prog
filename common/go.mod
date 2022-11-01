@@ -1,4 +1,4 @@
-module connection_module
+module github.com/enstenr/common
 
 go 1.18
 

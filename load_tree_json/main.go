@@ -1,7 +1,7 @@
 package main
 
 import (
-	"connection_module"
+	"github.com/enstenr/common"
  
 	"os"
 	"strings"
