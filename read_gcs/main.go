@@ -1,7 +1,8 @@
 package main
 
 import (
-	"connection_module"
+	"github.com/enstenr/common/connection"
+	"github.com/enstenr/common/gcs"
 	"fmt"
 	"log"
 	"os"
@@ -97,7 +98,7 @@ func main() {
 	}
 	LoadProperties(env);
 	bucket_name:=globalViperObj.GetString("BUCKET_NAME")
-	treeNameArray:=ReadFromGCSPath("metadata_tree/reports/2022_10_26-12_31_16/reports.csv",bucket_name)
+	treeNameArray:=gcs.ReadFromGCSPath("metadata_tree/reports/2022_10_27-12_21_07/reports.csv",bucket_name)
 	connection.ProcessData(treeNameArray, env)
 	fmt.Println(" Server Started in Port 9090")
 	fmt.Print("http://localhost:9090/")

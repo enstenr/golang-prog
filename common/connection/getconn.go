@@ -102,7 +102,7 @@ func ProcessData(duplicateSkuReportObjArray []customtypes.DupliateSkuReport,env 
 		 
 	}
 	buf.WriteString(")")
-	//fmt.Print(buf.String())
+	fmt.Print(buf.String())
 	rows, err := db.Query(buf.String())
 
 	if err != nil {
@@ -120,7 +120,7 @@ func ProcessData(duplicateSkuReportObjArray []customtypes.DupliateSkuReport,env 
 
 		
 		duplicateSkuReportObj :=treeMap[metadataTreeObj.Name]
-		message:=utils.cleanUpMessage(duplicateSkuReportObj.Message,metadataTreeObj.Name)  
+		message:=utils.CleanUpMessage(duplicateSkuReportObj.Message,metadataTreeObj.Name)  
 		 
 		  skuIdCount:=len(strings.Split(message, " "))
 		metadataTreeObj.Message=message

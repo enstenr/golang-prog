@@ -15,7 +15,7 @@ func GetSHA1(inputString string) (string) {
 
 	return sha1_hash
 }
-func cleanUpMessage(message string,treeName string) ( string) {
+func CleanUpMessage(message string,treeName string) ( string) {
 	message = strings.Replace(message,",","",-1)
 	message=strings.Replace(message,"Metadata tree contains duplicate SKU for ","",-1)
 	message=strings.Replace(message,"in GCS. Duplicate SKUs are","",-1)
