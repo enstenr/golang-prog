@@ -6,6 +6,7 @@ replace github.com/enstenr/customtypes => ../struct-types
 
 require (
 	cloud.google.com/go/storage v1.27.0
+	github.com/arangodb/go-driver v1.4.0
 	github.com/enstenr/customtypes v0.0.0-00010101000000-000000000000
 	github.com/jinzhu/copier v0.3.5
 	github.com/lib/pq v1.10.7
@@ -17,6 +18,7 @@ require (
 	cloud.google.com/go v0.104.0 // indirect
 	cloud.google.com/go/compute v1.10.0 // indirect
 	cloud.google.com/go/iam v0.3.0 // indirect
+	github.com/arangodb/go-velocypack v0.0.0-20200318135517-5af53c29c67e // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -29,6 +31,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
