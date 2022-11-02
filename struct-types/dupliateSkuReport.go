@@ -27,6 +27,7 @@ type MetadataTree struct {
 type Item struct {
 	ID    int
 	Attrs MetadataTreeConfiguration
+	MetadataTreeConfigurationId string
 }
 type MetadataTreeConfiguration struct {
 Config struct {

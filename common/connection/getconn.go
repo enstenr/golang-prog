@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-
+	"github.com/google/uuid"
 	"github.com/enstenr/customtypes"
 	"github.com/jinzhu/copier"
 	_ "github.com/lib/pq"
@@ -19,6 +19,7 @@ import (
 type Item struct {
 	ID    int
 	Attrs MetadataTreeConfiguration
+	MetadataTreeConfigurationId string
 }
 type MetadataTreeConfiguration struct {
 Config struct {
@@ -71,7 +72,7 @@ Config struct {
 
  
 func (a *MetadataTreeConfiguration) Scan(value interface{}) error {
-	
+	 
     b, ok := value.([]byte)
     if !ok {
         return errors.New("type assertion to []byte failed")
@@ -163,15 +164,20 @@ return dupliateSkuReportObj;
 	db :=InitConnection(env)
 	defer db.Close()
   
-	buf := bytes.NewBufferString(`select config from metadata_tree_configuration where active=true`)
+	buf := bytes.NewBufferString(`select config,"metadataTreeConfigurationId" from metadata_tree_configuration where active=true`)
 	
-	rows, _ := db.Query(buf.String())
+	rows,err := db.Query(buf.String())
+
+	if err != nil {
+		fmt.Print(err)
+	}
 	defer rows.Close()
 	for rows.Next() {
+		 
 		item := new(Item)
 		itemCustomType:=new (customtypes.Item)
 		
-		_ = rows.Scan(&item.Attrs)
+		_ = rows.Scan(&item.Attrs,&item.MetadataTreeConfigurationId)
 			copier.Copy(&itemCustomType,&item, ) 
 			itemArray=append(itemArray, *itemCustomType)
 	}
@@ -186,23 +192,26 @@ return dupliateSkuReportObj;
 
 	errorCount:=0
 	for _,itemObj:=range (itemArray){
+		metadata_tree_configuration_id:=itemObj.MetadataTreeConfigurationId
 		for _,value:=range(itemObj.Attrs.Config.TreeMappings){
-
-			var system_category,system_category_id string
+			//system_category
+			var system_category_id string
 			for _,criteriaObj := range (itemObj.Attrs.Config.MetadataTree.Criteria){
 				if criteriaObj.Entity=="system_category" {
-					system_category=criteriaObj.Attribute
+					//system_category=criteriaObj.Attribute
 					system_category_id=criteriaObj.AttributeID
 				}
 			}
-			system_category_l2_category_id:=utils.GetSHA1(fmt.Sprint(system_category_id,value.CategoryID))
+			system_category_l2_category_id:=uuid.New().String()
+
+			//system_category_l2_category_id:=utils.GetSHA1(fmt.Sprint(system_category_id,value.CategoryID))
 		//criteriaArray:=itemObj.Attrs.Config.MetadataTree.Criteria
 		//system_category,system_categoryId:=getSystemCategory(criteriaArray)
 	sqlStatement := `
-	INSERT INTO l2_category_mappings (system_category_l2_category_id,system_category,system_category_id,l2_category_id,l2_category,active)
-	VALUES ($1,$2,$3,$4,$5,$6)`
+	INSERT INTO l2_category_mappings ("l2CategoryMappingsId",system_category_id,l2_category_id,active,metadata_tree_configuration_id)
+	VALUES ($1,$2,$3,$4,$5)`
 	 //fmt.Print(system_category_l2_category_id,system_category, system_category_id,value.CategoryID,value.Category)
-	_,err := db.Exec(sqlStatement,system_category_l2_category_id,system_category, system_category_id,value.CategoryID,value.Category,true)
+	_,err := db.Exec(sqlStatement,system_category_l2_category_id, system_category_id,value.CategoryID,true,metadata_tree_configuration_id)
 	  if err != nil {
 		fmt.Print(err)
 		errorCount++
