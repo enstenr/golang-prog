@@ -202,7 +202,7 @@ return dupliateSkuReportObj;
 					system_category_id=criteriaObj.AttributeID
 				}
 			}
-			system_category_l2_category_id:=uuid.New().String()
+			system_category_l2_category_id:=strings.Replace(uuid.New().String(),"-","",-1)
 
 			//system_category_l2_category_id:=utils.GetSHA1(fmt.Sprint(system_category_id,value.CategoryID))
 		//criteriaArray:=itemObj.Attrs.Config.MetadataTree.Criteria
