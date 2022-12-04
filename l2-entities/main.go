@@ -69,21 +69,29 @@ func main() {
 	if !flag {
 		env = "dev"
 	}
-	 
+	type void struct {}
+	
+	l2_category_mappings :=make(map[string]map[string]struct{})
 	itemArray:=make([]customtypes.Item,0)
 	itemArray=connection.FetchTreeConfig(env)
 	
 	for _,itemObj:=range (itemArray){
-		loadEntities(itemObj.MetadataTreeConfigurationId)
+		
+		
 		fmt.Print(" Tree config id :"+itemObj.MetadataTreeConfigurationId)
 		for _,value:=range(itemObj.Attrs.Config.TreeMappings){
-			fmt.Println(" System Category : ")
-			fmt.Print(value.Category,"\t",value.CategoryID,"\t")
+			//fmt.Println(" System Category : ")
+			//fmt.Print(value.Category,"\t",value.CategoryID,"\t")
+			
+			l2_category_mappings=loadEntities(itemObj.MetadataTreeConfigurationId,l2_category_mappings,value.Category)
 			}
+		
 		fmt.Println("")
 		fmt.Println("")
+		fmt.Println(l2_category_mappings)
+	
 	}
-	 
+	 fmt.Println(l2_category_mappings)
 	
 	//connection.SaveOrUpdate(itemArray,env)
 	//Below code is for bulk inserting. But for this scenario the dupliate error may come up and bulk insert will fail. 
