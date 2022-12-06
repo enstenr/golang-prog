@@ -273,4 +273,30 @@ return dupliateSkuReportObj;
  
 
 return err
-}
+	}
+
+func SaveOrUpdateL2CategoryEntities(env string,l2_category_mappings map[int64]map[string]string){
+
+	db :=InitConnection(env)
+	defer db.Close()
+
+	
+	for l2_category_id,entityMap:=range (l2_category_mappings){
+		
+		for entity_name,categoryName:=range(entityMap){
+			fmt.Println(l2_category_id,categoryName,entity_name)
+	sqlStatement := `
+	INSERT INTO l2_category_entities ("l2_category_id",l2_category_name,entity_name)
+	VALUES ($1,$2,$3)`
+		value,err := db.Exec(sqlStatement,l2_category_id, categoryName,entity_name)
+	  if err != nil {
+		fmt.Print(err)
+		
+		continue
+	  }
+	  fmt.Print(value)
+	 
+		}
+	
+	}
+ }

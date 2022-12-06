@@ -16,17 +16,16 @@ type EntityRequest struct {
 	TreeID string `json:"tree_id"`
 }
 
-func loadEntities(metadataTreeConfigId string,l2_categories_map map[string]map[string]struct {},category string)(map[string]map[string]struct {}){
+func loadEntities(metadataTreeConfigId string,l2_categories_map map[int64]map[string]string,categoryName string,category int64)(map[int64]map[string]string){
 	url:="https://kg-dev.endpoints.mercari-us-de.cloud.goog/get_entities_for_tree"
-	type void struct {}
-	var member void
-	entities_map:=make(map[string]struct{})
+
+	entities_map:=make(map[string]string)
 	request_body:=EntityRequest{}
 	request_body.TreeID=metadataTreeConfigId
 	req_obj, _ := json.Marshal(request_body)
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(req_obj))
-    req.Header.Set("Authorization", "Bearer eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJSUzI1NiIsICJraWQiOiAiZDkwYzViNGU3OGI0OTE1YzEyYmU0YmJlOTk2MTdmZGU0MGY5NDU5MyJ9.eyJpYXQiOiAxNjcwMDc4Mjc1LCAiZXhwIjogMTY3MDA4MTg3NSwgImlzcyI6ICI1NzM0NDU2OTYxMTEtY29tcHV0ZUBkZXZlbG9wZXIuZ3NlcnZpY2VhY2NvdW50LmNvbSIsICJhdWQiOiAiaHR0cHM6Ly9rZy1kZXYuZW5kcG9pbnRzLm1lcmNhcmktdXMtZGUuY2xvdWQuZ29vZyIsICJzdWIiOiAiNTczNDQ1Njk2MTExLWNvbXB1dGVAZGV2ZWxvcGVyLmdzZXJ2aWNlYWNjb3VudC5jb20iLCAiZW1haWwiOiAiNTczNDQ1Njk2MTExLWNvbXB1dGVAZGV2ZWxvcGVyLmdzZXJ2aWNlYWNjb3VudC5jb20ifQ.Q__qbJPsNDxxCglYaNApite37vLTWyX9rzdBQ2_Vg4EEG0uVVvkS5CkYi_VubM7W6uNHEPXf_NTvgNV3vt4A8bKepzixVFf75tLofUbIBvgvB6-2-RGM9yw3VYUyle7tgKsPupG1v_abz8m_XIl0Qh3AuOZMTuBk5OrmyOKKNPYPiTDRLdnjr2K_kuWHDpxmsX5BCt19BsBns6BEJeCax16DgENjKhSZ9rGsAgvwH_BTNEM3fXZBhcq-sTArq2tBu8-j5AUv9kNh5Tz3Uef2hcgfVJziBs7RdQYUJdG1BdiU8XeAXVMzFkzVRHgYzY1DNyoPRKHROooKy1jtlYTVhQ")
+    req.Header.Set("Authorization", "Bearer eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJSUzI1NiIsICJraWQiOiAiZDkwYzViNGU3OGI0OTE1YzEyYmU0YmJlOTk2MTdmZGU0MGY5NDU5MyJ9.eyJpYXQiOiAxNjcwMjMwNzU3LCAiZXhwIjogMTY3MDIzNDM1NywgImlzcyI6ICI1NzM0NDU2OTYxMTEtY29tcHV0ZUBkZXZlbG9wZXIuZ3NlcnZpY2VhY2NvdW50LmNvbSIsICJhdWQiOiAiaHR0cHM6Ly9rZy1kZXYuZW5kcG9pbnRzLm1lcmNhcmktdXMtZGUuY2xvdWQuZ29vZyIsICJzdWIiOiAiNTczNDQ1Njk2MTExLWNvbXB1dGVAZGV2ZWxvcGVyLmdzZXJ2aWNlYWNjb3VudC5jb20iLCAiZW1haWwiOiAiNTczNDQ1Njk2MTExLWNvbXB1dGVAZGV2ZWxvcGVyLmdzZXJ2aWNlYWNjb3VudC5jb20ifQ.QZLoTnQGDnI0VzUuhYVa0Npi9TMIxF_HU849xIkkeq2z0-HlIvYBtQwf0kY2wAGZ8lEpWA25MGO_Sw7TTGHNI3K30hW5R81li8bnScO_k1DQy2mj4KP4sO9sgddDLnPSPzCg1ncxjhHQQ8u5BRHjTVGL2mLgFW2RwyHkwTo7HuKJKSl1xyc3vIGNpPYira2HCLycGuJ_hU1PLsW4glQhKNDvm4IFaB2pKpC0lGjbtDV3zW4tnG1iXqCEbDpCcFuJkzZlWW6yZPVe_TRC2cZ-SdFjVRifipyOODQ8xjDw7IRqGZn91jFGdYlo3SzbAvoy9cCWQz25JMbevOOln9cVUw")
     req.Header.Set("Content-Type", "application/json; charset=UTF-8")
 
 
@@ -47,7 +46,7 @@ func loadEntities(metadataTreeConfigId string,l2_categories_map map[string]map[s
 	//fmt.Print(result.Response)
 	for _,value:=range(result.Response){
 		//fmt.Print(value)
-		entities_map[value]=member
+		entities_map[value]=categoryName
 		
 	}
 	l2_categories_map[category]=entities_map
