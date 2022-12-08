@@ -10,3 +10,4 @@ load_tree_json/go.sum
 **/*.sum
 **/*.env
 **/*.csv
+**/*.json
