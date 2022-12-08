@@ -21,7 +21,26 @@ type MetadataTree struct {
 	
 }
 
+type Entity struct {
+EntityID string
+CreatedDate string
+ModifiedDate string
+Active bool
+Name string
+Alias string
+Published bool
+}
 
+type Attribute struct {
+AttributeID string
+CreateDate string
+ModifiedDate string
+Active bool
+Attribute string
+Published bool
+ProcessedAttribute string
+EntityAttributeID string
+}
 
 
 type Item struct {
