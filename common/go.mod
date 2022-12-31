@@ -8,6 +8,7 @@ require (
 	cloud.google.com/go/storage v1.27.0
 	github.com/arangodb/go-driver v1.4.0
 	github.com/enstenr/customtypes v0.0.0-00010101000000-000000000000
+	github.com/google/uuid v1.3.0
 	github.com/jinzhu/copier v0.3.5
 	github.com/lib/pq v1.10.7
 	github.com/spf13/viper v1.13.0
@@ -23,7 +24,6 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.2.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.6.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect

@@ -1,7 +1,7 @@
 package main
 
 import ("fmt"
-	"m_diff_package/math_package"
+	"m_diff_package/math_pkg"
 
 )
 /**

@@ -9,4 +9,6 @@ go run .
 **/
 func main() {
 fmt.Println("Welcome to golang")
+num3 :=Add(1,2)
+fmt.Print(num3)
 }

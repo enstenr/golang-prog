@@ -1,31 +1,32 @@
 package gcs
 
 import (
-	 "context"
-	"github.com/enstenr/customtypes"
+	"cloud.google.com/go/storage"
+	"context"
 	"encoding/csv"
 	"fmt"
+	"github.com/enstenr/customtypes"
+	"google.golang.org/api/option"
 	"io"
 	"log"
-	"cloud.google.com/go/storage"
-	"google.golang.org/api/option"
-	)
-func ReadFromGCSPath(path string,bucket_name string)([]customtypes.DupliateSkuReport){
+)
+
+func ReadFromGCSPath(path string, bucket_name string) []customtypes.DupliateSkuReport {
 	treeNameArray := make([]customtypes.DupliateSkuReport, 0)
-	
+
 	ctx := context.Background()
 	client, err := storage.NewClient(ctx, option.WithCredentialsFile("/home/bigthinker/mercari/creds/573445696111.json"))
 	if err != nil {
 		// TODO: Handle error.
 		fmt.Print(err)
 	}
-	 
+
 	bkt := client.Bucket(bucket_name)
 	obj := bkt.Object(path)
 
 	r, err := obj.NewReader(ctx)
 	csv_reader := csv.NewReader(r)
-	 
+
 	for {
 		record, err := csv_reader.Read()
 		if err == io.EOF {
@@ -44,6 +45,6 @@ func ReadFromGCSPath(path string,bucket_name string)([]customtypes.DupliateSkuRe
 			treeNameArray = append(treeNameArray, dupliateSkuReportObj)
 		}
 	}
-	return treeNameArray;
+	return treeNameArray
 
 }

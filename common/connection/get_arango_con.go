@@ -6,50 +6,48 @@ import (
 	"github.com/arangodb/go-driver/http"
 	"github.com/spf13/viper"
 )
-func GetArangoDBConnection(env string)  {
 
-	viperObj:=viper.New()
- 
+func GetArangoDBConnection(env string) {
+
+	viperObj := viper.New()
+
 	viperObj.SetConfigName(env)
 	viperObj.SetConfigType("env")
 	viperObj.AddConfigPath(".")
 	viperObj.ReadInConfig()
-	host     := viperObj.GetString("HOST")
-	port:=viperObj.GetString("PORT")
-	user     := viperObj.GetString("USER")
-	password:=viperObj.GetString("PASSWORD")
-	dbname:=viperObj.GetString("DBNAME")
+	host := viperObj.GetString("HOST")
+	port := viperObj.GetString("PORT")
+	user := viperObj.GetString("USER")
+	password := viperObj.GetString("PASSWORD")
+	dbname := viperObj.GetString("DBNAME")
 
-	fmt.Print(host,user,port,password,dbname)
+	fmt.Print(host, user, port, password, dbname)
 	conn, err := http.NewConnection(http.ConnectionConfig{
-		Endpoints: []string{host+":"+port+"/"},
+		Endpoints: []string{host + ":" + port + "/"},
 	})
-	
 
 	if err != nil {
 		fmt.Print(err)
 	}
-	client	, err := driver.NewClient(driver.ClientConfig{
-		Connection: conn,
+	client, err := driver.NewClient(driver.ClientConfig{
+		Connection:     conn,
 		Authentication: driver.BasicAuthentication(user, password),
-
 	})
-	 
+
 	if err != nil {
-		 fmt.Print(err)
+		fmt.Print(err)
 	}
 
 	db, err := client.Database(nil, dbname)
-if err != nil {
-    // Handle error
-}
-fmt.Print(db)
-// Open "books" collection
-col, err := db.CollectionExists(nil, "items")
-if err != nil {
-    // Handle error
-}
-fmt.Print(col)
- 
-	 
+	if err != nil {
+		// Handle error
+	}
+	fmt.Print(db)
+	// Open "books" collection
+	col, err := db.CollectionExists(nil, "items")
+	if err != nil {
+		// Handle error
+	}
+	fmt.Print(col)
+
 }
