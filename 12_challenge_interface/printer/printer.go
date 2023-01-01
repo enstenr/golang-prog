@@ -19,12 +19,12 @@ func New() *Printer{
 }
 
 func (p *Printer)CityHeader(){
-	fmt.Fprintln(p.w,"Name\tTempc\tTempF")
+	fmt.Fprintln(p.w,"Name\tTempc\tTempF\tBeach Vacation Ready ? \tMountain Vacation Ready? ")
 }
 
 
-func (p *Printer)CityDetails(c *models.City){
-	fmt.Fprintln(p.w,"%vt%v\t%v",c.Name,c.Tempc,c.TempF)
+func (p *Printer)CityDetails(c models.CityTemp){
+	fmt.Fprintf(p.w,"%v\t%v\t%v\t%v\t%v\n",c.Name(),c.Tempc(),c.TempF(),c.BeachVacationReady(),c.SkiVacationReady())
 }
 
 func (p *Printer)CleanUp(){

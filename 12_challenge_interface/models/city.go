@@ -9,6 +9,8 @@ type city struct {
 
 	name string
 	tempC float64
+	hasBeach bool
+	hasMountain bool
 }
 type CityTemp interface{
 	Name() string
@@ -22,6 +24,8 @@ func NewCity(n string,t float64,hasBeach bool , hasMountain bool) CityTemp{
 	return &city{
 		name:n,
 		tempC:t,
+		hasBeach: hasBeach,
+		hasMountain:hasMountain,
 	}
 }
 
@@ -36,14 +40,10 @@ func (c city) TempF() float64{
 }
 
 func (c city)BeachVacationReady()bool{
-	if c.Tempc()>70{
-		return true
-	}
-	return false
+	 
+	return c.hasBeach && c.tempC> beachVacationThreshold
 }
 func (c city)SkiVacationReady()bool{
-	if (c.TempF()< -2) {
-		return true
-	}
-	return false
+	 
+	return c.hasMountain && c.TempF()> skiVacationThreshold
 }
