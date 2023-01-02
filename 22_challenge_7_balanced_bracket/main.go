@@ -58,6 +58,8 @@ func isBalanced(expr string) bool {
 		case openBracket:
 			s.push(e)
 		case closedBracket:
+			// pop the last open bracket from stack and for this open bracket fetch the closed bracket 
+			//if the close bracked is not equal to the input element then bracket is not balanced
 			last:=s.pop()
 			if last==nil || bracketPairs[*last]!=e{
 				return false
