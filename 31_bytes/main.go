@@ -7,7 +7,21 @@ import (
 
 func main() {
 
-	bs := []byte{226 ,151, 186} 
+
+	bs := []byte{'S' ,'R', 'A'} 
+	s := string(bs)
+	fmt.Printf("%s", bs) 
+	fmt.Printf("%d", bs) 
+	 
+	fmt.Println()
+	bs = []byte{83 ,82, 65} 
+	fmt.Println(bs) 
+	s = string(bs)
+	fmt.Printf("%s", s) 
+
+	fmt.Println()
+
+	bs = []byte{226 ,151, 186} 
 	fmt.Printf("%s", bs) 
 	bs = []byte("◺")
 	fmt.Println(bs) // Output: [226 151 186]
@@ -15,7 +29,7 @@ func main() {
 	fmt.Println(bs)
 	bs = []byte{226 ,151 ,186} 
 	fmt.Printf("%s", bs) 
-	s:=string(bs)
+	s=string(bs)
 	fmt.Println(utf8.RuneCountInString(s))
 	fmt.Println()
 	bs = []byte("汉") 
@@ -34,4 +48,6 @@ func main() {
 	fmt.Print(string(ba))
 
 	fmt.Print(name[2])
+
+	
 }
