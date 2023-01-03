@@ -26,6 +26,6 @@ func main(){
  
 
 	  
-	 
-	 fmt.Println("Total Nazhigai is %v and Total Vinazhigai is  %v \n", totalviNazhigai,totalNazhigai)
+	 fmt.Println("")
+	 fmt.Printf("Total Nazhigai is %v and Total Vinazhigai is  %v \n", totalNazhigai,totalviNazhigai)
 }
