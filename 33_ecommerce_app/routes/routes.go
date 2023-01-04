@@ -5,10 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func userRoutes(incomingRoutes *gin.Engine){
-	incomingRoutes.POST("/users/signup",controllers.Signup())
+func UserRoutes(incomingRoutes *gin.Engine){
+	incomingRoutes.POST("/users/signup",controllers.SignUp())
 	incomingRoutes.POST("/users/login",controllers.Login())
-	incomingRoutes.POST("/admin/addproduct",controllers.ProductViewerAdmin())
-	incomingRoutes.GET("/users/productview",controllers.searchProduct())
-	incomingRoutes.GET("/users/search",controllers.SearchProducByQuery())
+	//incomingRoutes.POST("/admin/addproduct",controllers.ProductViewerAdmin())
+	//incomingRoutes.GET("/users/productview",controllers.searchProduct())
+	//incomingRoutes.GET("/users/search",controllers.SearchProducByQuery())
 }
