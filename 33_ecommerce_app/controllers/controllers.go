@@ -42,6 +42,13 @@ func VerifyPassword(userpassword string, givenpassword string) (bool, string) {
 	}
 	return valid, msg
 }
+func Welcome() gin.HandlerFunc{
+	return func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"content": "This is an index page...",
+		}) 
+}
+}
 func SignUp() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
