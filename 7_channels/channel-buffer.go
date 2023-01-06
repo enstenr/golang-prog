@@ -8,15 +8,22 @@ import (
 func worker(done chan bool) {
     fmt.Print("working...")
     time.Sleep(time.Second)
-    fmt.Println("done")
+   
 
     done <- true
+    done<-false
+    done <- true
+    done<-false
+    done <- true
+    done<-false
+    fmt.Println("done")
 }
 
-func main() {
+func main(){
 
-    done := make(chan bool, 1)
+    done := make(chan bool)
     go worker(done)
-
-    <-done
+    fmt.Print(<-done)
+    fmt.Print(<-done)
+     
 }

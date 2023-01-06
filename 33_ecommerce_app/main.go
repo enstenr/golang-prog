@@ -22,6 +22,7 @@ func main(){
 	//app:=controllers.NewApplication(database.ProductData(database.Client,"Product"),database.UserData(database.Client,"Users"),)
 	router:=gin.New()
 	router.Use(gin.Logger())
+	router.Static("/assets", "./assets")
 	router.LoadHTMLGlob("./templates/*.html")
 	routes.UserRoutes(router)
 	router.Use(middleware.Authentication())

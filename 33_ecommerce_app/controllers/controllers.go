@@ -49,15 +49,26 @@ func Welcome() gin.HandlerFunc{
 		}) 
 }
 }
+func SignUpLoad() gin.HandlerFunc{
+	return func(c *gin.Context) {
+		c.HTML(http.StatusOK, "signup.html", gin.H{
+			"content": "This is an index page...",
+		}) 
+}
+}
 func SignUp() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		 
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 		var user models.User
+		message := c.PostForm("email")
+		fmt.Print("******************",message)
 		if err := c.BindJSON(&user); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
+		fmt.Print(user)
 		validationErr := Validate.Struct(user)
 		if validationErr != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": validationErr})
