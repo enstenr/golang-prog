@@ -11,3 +11,6 @@ load_tree_json/go.sum
 **/*.env
 **/*.csv
 **/*.json
+36_whatsapp_integration/mydatabase.db
+37_jwt_token_google/get_token
+37_jwt_token_google/main.go
