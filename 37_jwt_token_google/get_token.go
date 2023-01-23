@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	 
+	//"github.com/gotk3/gotk3/gtk"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -13,9 +13,37 @@ import (
 	"github.com/spf13/viper"
 	"golang.org/x/oauth2/google"
 	"time"
+	"github.com/maxence-charriere/go-app/v9/pkg/app"
+	"net/http"
+
 )
 
+type hello struct {
+	app.Compo
 
+	name string
+}
+
+func (h *hello) Render() app.UI {
+	return app.Div().Body(
+		app.H1().Body(
+			app.Text("Hello, "),
+			app.If(h.name != "",
+				app.Text(h.name),
+			).Else(
+				app.Text("World!"),
+			),
+		),
+		app.P().Body(
+			app.Input().
+				Type("text").
+				Value(h.name).
+				Placeholder("What is your name?").
+				AutoFocus(true).
+				OnChange(h.ValueTo(&h.name)),
+		),
+	)
+}
 var globalViperObj *viper.Viper
 
 func LoadProperties(env string) *viper.Viper {
@@ -29,6 +57,25 @@ func LoadProperties(env string) *viper.Viper {
 }
 
 func main() {
+
+	// Components routing:
+	app.Route("/", &hello{})
+	app.Route("/hello", &hello{})
+	app.RunWhenOnBrowser()
+
+	// HTTP routing:
+	http.Handle("/", &app.Handler{
+		Name:        "Hello",
+		Description: "An Hello World! example",
+	})
+
+	if err := http.ListenAndServe(":8000", nil); err != nil {
+		log.Fatal(err)
+	}
+
+
+
+
 	var errorMap = make(map[int8]string)
 	errorMap[1]=" Please select an option from the list "
 	errorMap[2]=" Please select a number from the list "
@@ -132,3 +179,10 @@ func main() {
 	fmt.Println("------------------------------------------------")
 
 }
+/* func gtkCodes(){
+ // Initialize GTK without parsing any command line arguments.
+ gtk.Init(nil)
+ // Create a new toplevel window, set its title, and connect it to the
+    // "destroy" signal to exit the GTK main loop when it is destroyed.
+    win, err := gtk.WindowNew(gtk.WINDOW_TOPLEVEL)
+} */
