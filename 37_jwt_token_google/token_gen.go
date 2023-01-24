@@ -2,18 +2,19 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	//"github.com/gotk3/gotk3/gtk"
 	"fmt"
 	"io/ioutil"
 	"log"
+	mrand "math/rand"
 	"os"
 	"strconv"
 	"strings"
-	mrand "math/rand"
+	"time"
+
 	"github.com/spf13/viper"
 	"golang.org/x/oauth2/google"
-	"time"
-	 
 )
  
 var globalViperObj *viper.Viper
@@ -62,11 +63,74 @@ func main() {
 
 	  colorWhite := "\033[37m" */
 	fmt.Println()
-	fmt.Println(string(colorGreen), " Google API token Generator")
+	fmt.Println(string(colorGreen), "Google API token Generator")
 	fmt.Println()
-
+	fmt.Println(string(colorYellow), "Place your cred file in same directory along with the program so that it will be auto picked. ")
+	fmt.Println()
+	
 	reader := bufio.NewReader(os.Stdin)
 
+
+	fileInfoArray,_:=ioutil.ReadDir(".")
+
+	  secret_file:=""
+	jsonfile_array:=make([]string,0)
+	for _,value :=range fileInfoArray{
+		secret_file=value.Name()
+		ok,_:=validateFile(value.Name())
+		if(ok){
+			jsonfile_array=append(jsonfile_array,secret_file)
+		}
+		
+	}
+	/** if more than one file is present in the current directory then 
+	proceed with if blok. else go to else block **/
+	if(len(jsonfile_array)>0){
+		 
+		if(len(jsonfile_array)>1){
+			//TODO
+			for index,fileName := range jsonfile_array{
+				fmt.Print(index,fileName)
+			}
+		}else{
+			fileName:=jsonfile_array[0]
+			fmt.Printf("Found a json file %s . \n\nCan i use it for connection ? (y/n) : ",fileName)
+			choice, _ := reader.ReadString('\n')
+			if(strings.Compare(choice,"y")>0){
+			secret_file=fileName
+			}else if(strings.Compare(choice,"n")>0){
+				fmt.Print(" \nPlease enter a JSON file path : ")
+				secret_file, _ = reader.ReadString('\n')
+				 
+					ok,_:=validateFile(secret_file)
+					if(!ok){
+						fmt.Println(" Not a Valid JSON File. Try again. Exiting Program. see you soon. ")
+							os.Exit(600)
+					}
+				}
+		}
+		
+	}else{
+		fmt.Print("No JSON file found in current directory. Please enter a JSON file path")
+		secret_file, _ = reader.ReadString('\n')
+		
+		ok,_:=validateFile(secret_file)
+		if(!ok){
+			fmt.Println(" Not a Valid JSON File. Try again. Exiting Program. see you soon. ")
+				os.Exit(600)
+		}
+	}	 
+	 
+	 
+	secret_file=strings.TrimRight(secret_file,"\n")
+		secret_file=strings.Trim(secret_file, "")
+	data, err := ioutil.ReadFile(secret_file)
+	if err != nil {
+		 
+		log.Fatal(err)
+	}
+
+	
 	fmt.Println(string(colorCyan), "Environment Options:  \n 1: dev \n 2: stage \n 3: canary \n 4: prod \n Ctrl-C to Quit")
 	fmt.Println()
 	fmt.Print(string(colorRed), " Enter an option (number) and hit Enter key :")
@@ -114,10 +178,8 @@ func main() {
 	// To create a service account client, click "Create new Client ID",
 	// select "Service Account", and click "Create Client ID". A JSON
 	// key file will then be downloaded to your computer.
-	data, err := ioutil.ReadFile("/home/bigthinker/mercari/creds/573445696111.json")
-	if err != nil {
-		log.Fatal(err)
-	}
+	//"/home/bigthinker/mercari/creds/573445696111.json"
+	
 
 	conf1, err := google.JWTAccessTokenSourceFromJSON(data, AUDIENCE)
 
@@ -143,3 +205,13 @@ func main() {
     // "destroy" signal to exit the GTK main loop when it is destroyed.
     win, err := gtk.WindowNew(gtk.WINDOW_TOPLEVEL)
 } */
+
+func validateFile(file string) (bool,error) {
+	file=strings.TrimSpace(file)
+	 
+	if (!strings.HasSuffix(file,".json")){
+		// panic(" Invalid JSON file")
+		return false, errors.New("Invalid JSON file")
+	}
+	return true,nil
+}

@@ -15,3 +15,7 @@ load_tree_json/go.sum
 **/*.db
 37_jwt_token_google/get_token
 37_jwt_token_google/main.go 
+37_jwt_token_google/gen_token
+37_jwt_token_google/token_gen
+37_jwt_token_google/gen_token
+37_jwt_token_google/bin/app-amd64-darwin

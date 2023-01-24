@@ -1,4 +1,5 @@
 package customtypes
+ 
 
 type DupliateSkuReport struct {
 	Tree_name string
@@ -13,11 +14,30 @@ type MetadataTree struct {
 	Name                        string
 	Message	                    string
 	Count                        int
+	Hash						string
+	Modified_date				string
+	RePublishStatus				string
 	GcsPath  string
 	System_category string
 	system_category_id string
 	L2_category string
 	l2_category_id string
+	
+}
+
+type MetadataTreeDifference struct {
+	MetadataTreeId              string
+	MetadataTreeConfigurationId1 string
+	MetadataTreeConfigurationId2 string
+	Name                        string
+	Message	                    string
+	Count                        int
+	Hash1						string
+	Modified_date1				string
+	RePublishStatus1			string
+	Hash2						string
+	Modified_date2				string
+	RePublishStatus2			string
 	
 }
 
