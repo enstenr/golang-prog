@@ -19,3 +19,7 @@ load_tree_json/go.sum
 37_jwt_token_google/token_gen
 37_jwt_token_google/gen_token
 37_jwt_token_google/bin/app-amd64-darwin
+42_zip/archive/gopher.txt
+42_zip/archive/readme.txt
+42_zip/archive/todo.txt
+42_zip/archive.zip

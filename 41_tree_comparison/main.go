@@ -67,11 +67,14 @@ func main (){
 
 func treesInStageNotinCanary(smap map[string]customtypes.MetadataTree, cmap map[string]customtypes.MetadataTree){
 	fmt.Println(" Tree not in canary but available in Stage")
-	for skey,_ := range smap{
+	for skey,sObj := range smap{
+		if (sObj.RePublishStatus=="unpublished"){
+			continue
+		}
 		_,cok:=cmap[skey]
 		if(!cok){
 			
-			fmt.Println(skey)
+			fmt.Println(skey,sObj.Name,sObj.RePublishStatus)
 		}
 	}
 }

@@ -3,16 +3,15 @@ package connection
 import (
 	"bytes"
 	"database/sql"
-	"encoding/json"
-	"errors"
+	
 	"fmt"
 
 	"strings"
 
 	"github.com/enstenr/common/utils"
 	"github.com/enstenr/customtypes"
-	"github.com/google/uuid"
-	"github.com/jinzhu/copier"
+	//"github.com/google/uuid"
+	//
 	_ "github.com/lib/pq"
 )
 
@@ -68,15 +67,6 @@ type MetadataTreeConfiguration struct {
 	} `json:"config"`
 }
 
-func (a *MetadataTreeConfiguration) Scan(value interface{}) error {
-
-	b, ok := value.([]byte)
-	if !ok {
-		return errors.New("type assertion to []byte failed")
-	}
-
-	return json.Unmarshal(b, &a)
-}
 
 func InitConnection(env string) (db *sql.DB) {
 	return GetConnection(env)

@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/enstenr/common/connection"
+	 
+	"github.com/enstenr/common/dao"
 	"fmt"
 	"os"
 
 	"github.com/enstenr/customtypes"
 )
-
+/** Step 1 - Load L2 and the system category from tree config **/
 
 type Item struct {
 	ID    int
@@ -72,14 +73,17 @@ func main() {
 	 
 	
 	itemArray:=make([]customtypes.Item,0)
-	itemArray=connection.FetchTreeConfig(env)
-	fmt.Print(len(itemArray))
+	itemArray=dao.FetchTreeConfig(env)
+	fmt.Println(len(itemArray))
 	for _,itemObj:=range (itemArray){
+		fmt.Print(itemObj.MetadataTreeConfigurationId)
 	for _,value:=range(itemObj.Attrs.Config.TreeMappings){
 		fmt.Println(value.Category,"\t",value.CategoryID,"\t",value.CategoryNameWithParents)
 		}
 	}
-	connection.SaveOrUpdate(itemArray,env)
+	//fmt.Println(" going to insert ",len(itemArray))
+	//fmt.Println()
+	dao.SaveOrUpdate(itemArray,env)
 	//Below code is for bulk inserting. But for this scenario the dupliate error may come up and bulk insert will fail. 
 	// so going with normal single insert
 	//connection.BulkInsert(itemArray,env)

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/enstenr/common/connection"
+	"github.com/enstenr/common/dao"
 	"fmt"
 	"os"
 
@@ -72,7 +72,7 @@ func main() {
 	 
 	entityMap:=make(map[string]string,0)
 	itemArray:=make([]customtypes.Item,0)
-	itemArray=connection.FetchTreeConfig(env)
+	itemArray=dao.FetchTreeConfig(env)
 	fmt.Print(len(itemArray))
 	for _,itemObj:=range (itemArray){
 	for _,value:=range(itemObj.Attrs.Config.MetadataTree.Criteria){
