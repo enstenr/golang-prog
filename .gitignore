@@ -1,6 +1,7 @@
 .env
 .sum
 .csv
+.mod
 **/.env
 **/.sum
 **/*.wasm
@@ -23,3 +24,5 @@ load_tree_json/go.sum
 42_zip/archive/readme.txt
 42_zip/archive/todo.txt
 42_zip/archive.zip
+37_jwt_token_google/go.mod
+37_jwt_token_google/go.mod
