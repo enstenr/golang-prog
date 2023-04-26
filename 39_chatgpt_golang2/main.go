@@ -20,6 +20,7 @@ func GetResponse(client gpt3.Client,ctx context.Context,question string){
 			MaxTokens: gpt3.IntPtr(3000),
 			Temperature:gpt3.Float32Ptr(0),
 		}, func (response *gpt3.CompletionResponse){
+			fmt.Println(response)
 			fmt.Println(response.Choices[0].Text)
 		})
 		if err != nil{

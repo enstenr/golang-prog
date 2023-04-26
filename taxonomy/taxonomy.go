@@ -68,7 +68,7 @@ tree config is fetched and inserted into this table
 func main() {
 	env, flag := os.LookupEnv("env")
 	if !flag {
-		env = "dev"
+		env = "stage"
 	}
 	 
 	
