@@ -1,17 +1,17 @@
 package dao
 
 import (
-	 
-	"strings"
-	"fmt"
-	"github.com/enstenr/common/connection"
-	"github.com/enstenr/customtypes"
-	_ "github.com/lib/pq"
-	"github.com/google/uuid"
-	"github.com/jinzhu/copier"
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"strings"
+
+	"github.com/enstenr/common/connection"
+	"github.com/enstenr/customtypes"
+	"github.com/google/uuid"
+	"github.com/jinzhu/copier"
+	_ "github.com/lib/pq"
 )
 
 type Item struct {
@@ -36,7 +36,7 @@ type MetadataTreeConfiguration struct {
 			TreeReference string `json:"tree_reference"`
 		} `json:"item_name_suggest"`
 		ItemSuggestMapping struct {
-			Brand                   string `json:"Brand"`
+			Brand string `json:"Brand"`
 			//BrandID                 int64  `json:"BrandId"`
 			Category                string `json:"Category"`
 			CategoryID              int64  `json:"CategoryId"`
@@ -56,7 +56,7 @@ type MetadataTreeConfiguration struct {
 			} `json:"hierarchy"`
 		} `json:"metadata_tree"`
 		TreeMappings []struct {
-			Brand                   string `json:"Brand"`
+			Brand string `json:"Brand"`
 			//BrandID                 int64  `json:"BrandId"`
 			Category                string `json:"Category"`
 			CategoryID              int64  `json:"CategoryId"`
@@ -65,7 +65,6 @@ type MetadataTreeConfiguration struct {
 		} `json:"tree_mappings"`
 	} `json:"config"`
 }
-
 
 func (a *MetadataTreeConfiguration) Scan(value interface{}) error {
 
@@ -84,23 +83,23 @@ func SaveOrUpdateL2CategoryEntities(env string, l2_category_mappings map[int64]m
 	for l2_category_id, entityMap := range l2_category_mappings {
 
 		for entity_name, categoryName := range entityMap {
-			fmt.Println(l2_category_id, categoryName, entity_name)
+			//fmt.Println(l2_category_id, categoryName, entity_name)
 			sqlStatement := `
 	INSERT INTO l2_category_entities ("l2_category_id",l2_category_name,entity_name)
 	VALUES ($1,$2,$3)`
-			value, err := db.Exec(sqlStatement, l2_category_id, categoryName, entity_name)
+			_, err := db.Exec(sqlStatement, l2_category_id, categoryName, entity_name)
 			if err != nil {
 				fmt.Print(err)
 
 				continue
 			}
-			fmt.Print(value)
 
 		}
+		fmt.Println(" Inserted ")
+		fmt.Println(l2_category_mappings)
 
 	}
 }
-
 
 func BulkInsert(unsavedRows []customtypes.Item, env string) error {
 	db := connection.InitConnection(env)
@@ -140,7 +139,6 @@ func BulkInsert(unsavedRows []customtypes.Item, env string) error {
 
 	return err
 }
-
 
 func SaveOrUpdate(itemArray []customtypes.Item, env string) {
 
@@ -188,7 +186,7 @@ func SaveOrUpdate(itemArray []customtypes.Item, env string) {
 }
 
 func FetchTreeConfig(env string) []customtypes.Item {
-	fmt.Print(" inside fetch")
+	//fmt.Print(" inside fetch")
 	itemArray := make([]customtypes.Item, 0)
 	db := connection.InitConnection(env)
 	defer db.Close()
@@ -205,13 +203,13 @@ func FetchTreeConfig(env string) []customtypes.Item {
 
 		item := new(Item)
 		itemCustomType := new(customtypes.Item)
-		
+
 		err = rows.Scan(&item.Attrs, &item.MetadataTreeConfigurationId)
-		if err!=nil {
+		if err != nil {
 			panic(err)
 		}
 		copier.Copy(&itemCustomType, &item)
-		
+
 		itemArray = append(itemArray, *itemCustomType)
 	}
 	return itemArray

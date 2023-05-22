@@ -33,7 +33,7 @@ func GetConnection(env string) (db *sql.DB) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Print("opened connection")
+	fmt.Println("opened connection")
 	return db
 }
 
