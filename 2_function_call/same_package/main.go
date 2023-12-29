@@ -10,5 +10,5 @@ go run .
 func main() {
 fmt.Println("Welcome to golang")
 result:=addNumbers(1,2)
-fmt.Print(result)
+fmt.Println(result)
 }

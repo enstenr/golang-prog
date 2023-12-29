@@ -3,11 +3,11 @@ package main
 import "fmt"
 func main() {
 name := "Rajesh"
-fmt.Print(name)
+fmt.Println(name)
 
 pointer:=&name
-fmt.Print(pointer)
+fmt.Println(pointer)
 *pointer="Raj1"
-fmt.Print(pointer)
-fmt.Print(*pointer)
+fmt.Println(pointer)
+fmt.Println(*pointer)
 }
