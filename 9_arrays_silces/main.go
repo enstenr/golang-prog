@@ -7,6 +7,6 @@ func main() {
 var colors=[]string{"Red", "Green", "Yellow", "Blue", "Magenta", "Pink"}
 colors=append(colors, "Orange")
 
-colors=append(colors[1:len(colors)])
+colors=append(colors[0:len(colors)])
 fmt.Println(colors)
 }

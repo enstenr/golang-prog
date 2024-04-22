@@ -11,11 +11,23 @@ func main()  {
 	
 	reader:= bufio.NewReader(os.Stdin)
 	fmt.Print("Enter Text: ")
-	input,_ := reader.ReadString('\n')
+	input,err := reader.ReadString('a')
+	if err != nil {
+		fmt.Println("Error reading input:", err)
+		return
+	}
 	fmt.Print(input)
 
+	// Discard the remaining newline character
+	_, err = reader.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error discarding newline character:", err)
+		return
+	}
+
 	numinput,_ := reader.ReadString('\n')
-	aFloat,err:=strconv.ParseFloat(strings.TrimSpace(numinput),60)
+	fmt.Println(numinput)
+	aFloat,err:=strconv.ParseFloat(strings.TrimSpace(numinput),64)
 	if( err != nil ){
 		fmt.Print(err)
 	}else{
